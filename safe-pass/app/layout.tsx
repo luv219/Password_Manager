@@ -4,14 +4,16 @@ import {
   //SignedIn,
   //SignedOut,
   //UserButton
-} from '@clerk/nextjs'
-import './globals.css'
-import Navbar from '@/components/Navbar'
-import { ThemeProvider } from "@/components/theme-provider"
+} from "@clerk/nextjs";
+import "./globals.css";
+import Navbar from "@/components/Navbar";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "react-hot-toast";
+
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <ClerkProvider>
@@ -23,11 +25,12 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Navbar/>
+            <Navbar />
+            <Toaster position="top-center" reverseOrder={false} />
             {children}
           </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
-  )
+  );
 }

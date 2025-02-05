@@ -1,14 +1,16 @@
-import { AddCard } from "@/components/AddCard"
-import { AddPassword } from "@/components/AddPassword"
-import { YourCards } from "@/components/YourCards"
-import { YourPasswords } from "@/components/YourPasswords"
+import { AddCard } from "@/components/AddCard";
+import { AddPassword } from "@/components/AddPassword";
+import { YourCards } from "@/components/YourCards";
+import { YourPasswords } from "@/components/YourPasswords";
 
 export default function Home() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-6">
-          <h1 className="text-2xl font-bold text-primary">Add a Credit/Debit Card</h1>
+          <h1 className="text-2xl font-bold text-primary">
+            Add a Credit/Debit Card
+          </h1>
           <AddCard />
         </div>
         <div className="space-y-6">
@@ -27,6 +29,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
