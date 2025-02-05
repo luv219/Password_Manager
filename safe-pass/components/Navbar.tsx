@@ -15,7 +15,7 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 const Navbar = () => {
   const { setTheme } = useTheme();
   return (
-    <nav className="flex justify-between items-center px-4 h-16 bg-border text-foreground">
+    <nav className="flex justify-between items-center px-4 h-16 text-foreground">
       <span className="font-bold text-xl">Safe PASS</span>
       <ul className="flex gap-5 items-center justify-start">
         <li>Home</li>
