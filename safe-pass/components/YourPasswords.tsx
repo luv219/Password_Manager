@@ -1,25 +1,43 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "./ui/button"
+import { Eye } from "lucide-react"
+import Link from "next/link";
 
-export function YourPasswords() {
+interface Password {
+  website: string;
+  username: string;
+  password: string;
+}
+
+export function YourPasswords({passwords}: {passwords: Password[]}) {
   // This is a placeholder. You would typically fetch this data from your backend.
-  const passwords = [
-    { id: 1, website: "example.com", username: "johndoe@example.com" },
-    { id: 2, website: "anothersite.com", username: "janedoe@example.com" },
-  ]
+
 
   return (
-    <div className="space-y-4">
-      {passwords.map((password) => (
-        <Card key={password.id}>
-          <CardHeader>
-            <CardTitle>{password.website}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>Username: {password.username}</p>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Your Passwords</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ul className="space-y-2 h-48 overflow-y-auto">
+        {passwords.length===0 && <span>No Cards Added</span>}
+          {passwords.map((pw, index) => (
+            <li key={index} className="flex justify-between items-center p-2 rounded">
+              <div>
+                <Link href={pw.website} target="_blank">
+                <div className="font-semibold">{pw.website}</div>
+                </Link>
+                <div className="text-sm text-muted-foreground">{pw.username}</div>
+                <div className="text-sm text-muted-foreground">{pw.password}</div>
+              </div>
+              <Button variant="ghost" size="icon">
+                <Eye className="h-4 w-4"/>
+              </Button>
+            </li>
+          ))}
+        </ul>
+      </CardContent>
+    </Card>
   )
 }
 

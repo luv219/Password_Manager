@@ -1,26 +1,32 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export function YourCards() {
+interface CardProps {
+  cardNo: string;
+  expiry: string;
+  cvv: number;
+}
+export function YourCards({ cards }: { cards: CardProps[] }) {
   // This is a placeholder. You would typically fetch this data from your backend.
-  const cards = [
-    { id: 1, last4: "1234", brand: "Visa", expiry: "12/24" },
-    { id: 2, last4: "5678", brand: "Mastercard", expiry: "06/25" },
-  ];
 
   return (
-    <div className="space-y-4">
-      {cards.map((card) => (
-        <Card key={card.id}>
-          <CardHeader>
-            <CardTitle>
-              {card.brand} ending in {card.last4}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>Expires: {card.expiry}</p>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Your Cards</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ul className="space-y-2 h-48 overflow-y-auto">
+          {cards.length===0 && <span>No Cards Added</span>}
+          {cards.map((card: CardProps) => (
+            <li key={card.cardNo}
+              className="flex justify-between items-center p-2 rounded"
+            >
+              <span>{card.cardNo}</span>
+              <span>{card.expiry}</span>
+              <span>{card.cvv}</span>
+            </li>
+          ))}
+        </ul>
+      </CardContent>
+    </Card>
   );
 }
