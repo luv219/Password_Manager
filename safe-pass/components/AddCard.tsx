@@ -39,7 +39,7 @@ export function AddCard() {
     defaultValues: {
       cardNumber: "",
       expiryDate: "",
-      cvv: "",
+      cvv: 0,
     },
   });
 
