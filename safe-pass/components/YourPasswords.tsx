@@ -1,6 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "./ui/button"
-import { Eye } from "lucide-react"
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "./ui/button";
+import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 
 interface Password {
@@ -9,9 +10,15 @@ interface Password {
   password: string;
 }
 
-export function YourPasswords({passwords}: {passwords: Password[]}) {
-  // This is a placeholder. You would typically fetch this data from your backend.
+export function YourPasswords({ passwords }: { passwords: Password[] }) {
+  const [visiblePasswords, setVisiblePasswords] = useState<Record<number, boolean>>({});
 
+  const toggleVisibility = (index: number) => {
+    setVisiblePasswords((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
 
   return (
     <Card>
@@ -20,24 +27,25 @@ export function YourPasswords({passwords}: {passwords: Password[]}) {
       </CardHeader>
       <CardContent>
         <ul className="space-y-2 h-48 overflow-y-auto">
-        {passwords.length===0 && <span>No Cards Added</span>}
+          {passwords.length === 0 && <span>No Cards Added</span>}
           {passwords.map((pw, index) => (
             <li key={index} className="flex justify-between items-center p-2 rounded">
               <div>
                 <Link href={pw.website} target="_blank">
-                <div className="font-semibold">{pw.website}</div>
+                  <div className="font-semibold">{pw.website}</div>
                 </Link>
                 <div className="text-sm text-muted-foreground">{pw.username}</div>
-                <div className="text-sm text-muted-foreground">{pw.password}</div>
+                <div className="text-sm text-muted-foreground">
+                  {visiblePasswords[index] ? pw.password : "••••••••"}
+                </div>
               </div>
-              <Button variant="ghost" size="icon">
-                <Eye className="h-4 w-4"/>
+              <Button variant="ghost" size="icon" onClick={() => toggleVisibility(index)}>
+                {visiblePasswords[index] ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </Button>
             </li>
           ))}
         </ul>
       </CardContent>
     </Card>
-  )
+  );
 }
-
