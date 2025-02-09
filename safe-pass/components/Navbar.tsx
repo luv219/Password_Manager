@@ -1,12 +1,14 @@
 "use client";
-import React from "react";
+import React, {useEffect} from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
+  const router=useRouter()
   const toggleTheme = () => {
     if (theme === "dark") {
       setTheme("light");
@@ -14,6 +16,17 @@ const Navbar = () => {
       setTheme("dark");
     }
   };
+  useEffect(() => {
+    const handleSignOut = () => {
+      router.refresh(); // Refresh the page when the user signs out
+    };
+
+    return () => {
+      handleSignOut();
+    };
+  }, [router]);
+
+
   return (
     <nav className="flex justify-between items-center px-4 h-16 text-white bg-[linear-gradient(90deg,_#6366f1_0%,_#818cf8_30%,_#818cf8_70%,_#6366f1_100%)] relative overflow-hidden">
       <div className="absolute inset-0 bg-[linear-gradient(90deg,_#8b5cf6_0%,_#8b5cf6_20%,_transparent_50%,_#8b5cf6_80%,_#8b5cf6_100%)] " />
