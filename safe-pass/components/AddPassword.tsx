@@ -60,7 +60,6 @@ const formSchema = z.object({
 export function AddPassword() {
   const user = useUser();
   const router = useRouter();
-  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -71,8 +70,6 @@ export function AddPassword() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
     if (user.user) {
       AddPasswordServer(
@@ -88,24 +85,26 @@ export function AddPassword() {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Add New Password</CardTitle>
+    <Card className="shadow-lg rounded-lg">
+      <CardHeader className="bg-gradient-to-l from-blue-500 to-purple-600 text-white py-4 rounded-t-lg">
+        <CardTitle className="text-lg font-bold">Add New Password</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-6">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
               name="website"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Webite</FormLabel>
+                  <FormLabel className="font-medium">Website URL</FormLabel>
                   <FormControl>
-                    <Input placeholder="Your website URL" {...field} />
+                    <Input placeholder="https://example.com" {...field} />
                   </FormControl>
-                  <FormDescription>This is your website url.</FormDescription>
-                  <FormMessage />
+                  {/* <FormDescription className="text-sm">
+                    Enter the website URL (e.g., 
+                  </FormDescription> */}
+                  <FormMessage className="text-red-500" />
                 </FormItem>
               )}
             />
@@ -114,14 +113,14 @@ export function AddPassword() {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel className="font-medium">Username</FormLabel>
                   <FormControl>
-                    <Input placeholder="Your username" {...field} />
+                    <Input {...field} />
                   </FormControl>
-                  <FormDescription>
-                    This is your username for website.
-                  </FormDescription>
-                  <FormMessage />
+                  {/* <FormDescription className="text-sm">
+                    Enter your username for this website
+                  </FormDescription> */}
+                  <FormMessage className="text-red-500" />
                 </FormItem>
               )}
             />
@@ -130,18 +129,21 @@ export function AddPassword() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>password</FormLabel>
+                  <FormLabel className="font-medium">Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="Your password" {...field} />
+                    <Input type="password" {...field} />
                   </FormControl>
-                  <FormDescription>
-                    This is your website password.
-                  </FormDescription>
-                  <FormMessage />
+                  <FormDescription className="text-sm"></FormDescription>
+                  <FormMessage className="text-red-500" />
                 </FormItem>
               )}
             />
-            <Button type="submit">Submit</Button>
+            <Button
+              type="submit"
+              className="w-full bg-gradient-to-l from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700"
+            >
+              Add Password
+            </Button>
           </form>
         </Form>
       </CardContent>
