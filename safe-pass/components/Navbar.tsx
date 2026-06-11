@@ -3,7 +3,7 @@ import React, {useEffect} from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { Show, SignInButton, UserButton } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
@@ -42,12 +42,12 @@ const Navbar = () => {
           <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           <span className="sr-only">Toggle theme</span>
         </Button>
-        <SignedOut>
+        <Show when="signed-out">
           <SignInButton />
-        </SignedOut>
-        <SignedIn>
+        </Show>
+        <Show when="signed-in">
           <UserButton />
-        </SignedIn>
+        </Show>
       </div>
     </nav>
   );

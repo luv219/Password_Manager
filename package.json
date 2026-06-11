@@ -1,0 +1,10 @@
+{
+  "name": "password-manager",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix safe-pass",
+    "build": "npm run build --prefix safe-pass",
+    "start": "npm run start --prefix safe-pass",
+    "lint": "npm run lint --prefix safe-pass"
+  }
+}

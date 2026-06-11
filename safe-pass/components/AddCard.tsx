@@ -28,7 +28,9 @@ const formSchema = z.object({
   expiryDate: z.string().regex(/^(0[1-9]|1[0-2])\/\d{2}$/, {
     message: "Expiry date must be in MM/YY format.",
   }),
-  cvv: z.coerce.number().min(100).max(9999),
+  cvv: z
+    .string()
+    .regex(/^\d{3,4}$/, { message: "CVV must be 3-4 digits." }),
 });
 
 export function AddCard() {
@@ -39,7 +41,7 @@ export function AddCard() {
     defaultValues: {
       cardNumber: "",
       expiryDate: "",
-      cvv: 0,
+      cvv: "",
     },
   });
 
@@ -48,7 +50,7 @@ export function AddCard() {
       AddCardServer(
         values.cardNumber,
         values.expiryDate,
-        values.cvv,
+        Number(values.cvv),
         user.user.id
       );
       toast.success("Card Added!");
@@ -74,7 +76,6 @@ export function AddCard() {
                   <FormControl>
                     <Input
                       placeholder="1234 5678 9012 3456"
-                      type="number" // ✅ Fix: Ensure numeric input
                       inputMode="numeric"
                       {...field}
                     />
@@ -105,8 +106,8 @@ export function AddCard() {
                   <FormControl>
                     <Input
                       placeholder="CVV"
-                      type="number" // ✅ Fix: Ensure numeric input
                       inputMode="numeric"
+                      maxLength={4}
                       {...field}
                     />
                   </FormControl>
