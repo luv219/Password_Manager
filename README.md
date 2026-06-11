@@ -96,7 +96,13 @@ Run these from the **repository root** or use the same commands inside `safe-pas
 
 ## Deployment
 
-Build and deploy the `safe-pass` app (for example on [Vercel](https://vercel.com)). Set the same Clerk environment variables in your hosting provider’s project settings.
+Build and deploy the `safe-pass` app (for example on [Vercel](https://vercel.com)).
+
+**Vercel settings:**
+
+- **Root Directory:** `safe-pass`
+- **Package manager:** npm (use `package-lock.json`; do not commit `pnpm-lock.yaml`)
+- **Environment variables:** `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`
 
 ## License
 
